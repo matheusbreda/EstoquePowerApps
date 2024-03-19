@@ -1,0 +1,52 @@
+{
+  "cd1cde89-5b26-453c-bd72-f3c3a01c0def": {
+    "appActions": [
+      "providers/PowerPlatform.Governance/Operations/Read",
+      "providers/PowerPlatform.Governance/Operations/Write",
+      "providers/PowerPlatform.Governance/Operations/Delete"
+    ],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "SharePoint",
+      "iconUri": "https://connectoricons-prod.azureedge.net/u/alexsp/sporelease/1.0.1682.3673/sharepointonline/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_sharepointonline",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {
+      "https://cocamar.sharepoint.com/sites/TimeProcessosSocioAmbiental-Teams": {
+        "dataSources": {
+          "Departamentos": {
+            "tableName": "f00540a8-f269-4d10-9803-bb6dd499c6e4"
+          },
+          "Itens de estoque": {
+            "tableName": "99c26fa4-ff51-45d8-8256-24f411363c81"
+          },
+          "Movimentação Estoque Social": {
+            "tableName": "9e16da6d-01f8-4af0-b1d6-413e78f7376c"
+          },
+          "Pedidos Social": {
+            "tableName": "e3543237-3890-4b4d-b61f-657ab3595576"
+          },
+          "Solicitação Social": {
+            "tableName": "dc0efdc9-9b30-40ac-9fc1-8441ca395075"
+          },
+          "Usuarios": {
+            "tableName": "7a4e63ec-8f7b-4a80-b7da-ed09e790b20f"
+          }
+        }
+      }
+    },
+    "dataSources": [
+      "Movimentação Estoque Social",
+      "Solicitação Social",
+      "Itens de estoque",
+      "Departamentos",
+      "Pedidos Social",
+      "Usuarios"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "cd1cde89-5b26-453c-bd72-f3c3a01c0def"
+  }
+}

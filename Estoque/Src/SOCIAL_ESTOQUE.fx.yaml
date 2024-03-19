@@ -1,0 +1,467 @@
+SOCIAL_ESTOQUE As screen:
+    Fill: =RGBA(253, 249, 249, 1)
+    LoadingSpinnerColor: =RGBA(73, 130, 5, 1)
+    OnVisible: =Reset(filtroEstoque)
+
+    "scl_stq_gallery As gallery.'BrowseLayout_Vertical_ThreeTextVariant_ver5.0'":
+        BorderColor: =RGBA(166, 166, 166, 1)
+        DelayItemLoading: =true
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =548
+        Items: =Distinct(Sort(Search(Filter('Movimentação Estoque Social', Departamento = filtroEstoque.Selected.Título, 'Status (Status0)' = "Aprovado"),buscar.Text, "Item"),Item,SortOrder.Ascending),Item)
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        TemplatePadding: =0
+        TemplateSize: =80
+        Width: =1366
+        Y: =219
+        ZIndex: =1
+
+        scl_stq_glr_item As label:
+            Align: =Align.Center
+            Color: =RGBA(51, 51, 51, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            Font: =Font.'Segoe UI'
+            FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+            Height: =Parent.TemplateHeight
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =17
+            Text: =ThisItem.Value
+            Width: =534
+            X: =15
+            ZIndex: =3
+
+        Separator2 As rectangle:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(25, 46, 1, 1)
+            Height: =5
+            OnSelect: =Select(Parent)
+            Width: =Parent.TemplateWidth
+            Y: =Parent.TemplateHeight - Self.Height
+            ZIndex: =4
+
+        Rectangle2 As rectangle:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(25, 46, 1, 1)
+            Height: =Parent.TemplateHeight
+            OnSelect: =Select(Parent)
+            Visible: =ThisItem.IsSelected
+            Width: =8
+            ZIndex: =5
+
+        scl_stq_glr_armazenar As label:
+            Align: =Align.Center
+            Color: =RGBA(51, 51, 51, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            Font: =Font.'Segoe UI'
+            FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+            Height: =Parent.TemplateHeight
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =17
+            Text: =LookUp(Sort('Movimentação Estoque Social',dataArmazenar,SortOrder.Descending), Item = ThisItem.Value && Departamento = filtroEstoque.Selected.Título, dataArmazenar)
+            Width: =179
+            X: =1155
+            ZIndex: =6
+
+        scl_stq_glr_entrada As label:
+            Align: =Align.Center
+            Color: =RGBA(51, 51, 51, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            Font: =Font.'Segoe UI'
+            FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+            Height: =Parent.TemplateHeight
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =17
+            Text: =LookUp(Sort('Movimentação Estoque Social', Criado, SortOrder.Descending), Item = ThisItem.Value && Departamento = filtroEstoque.Selected.Título, DateValue(Criado))
+            Width: =204
+            X: =926
+            ZIndex: =7
+
+        NextArrow2 As icon.ChevronRight:
+            AccessibleLabel: =Self.Tooltip
+            BorderColor: =RGBA(166, 166, 166, 1)
+            BorderStyle: =BorderStyle.None
+            Color: =RGBA(25, 46, 1, 0)
+            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+            DisabledColor: =RGBA(255, 255, 255, 0)
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(255, 255, 255, 0)
+            FocusedBorderThickness: =0
+            Height: =75
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =RGBA(255, 255, 255, 0)
+            HoverFill: =RGBA(255, 255, 255, 0)
+            Icon: =Icon.ChevronRight
+            OnSelect: =Select(Parent)
+            PaddingBottom: =16
+            PaddingLeft: =1500
+            PaddingRight: =16
+            PaddingTop: =16
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =ColorFade(RGBA(73, 130, 5, 1), -30%)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            Tooltip: ="Exibir detalhes do item"
+            Width: =357
+            ZIndex: =9
+
+        scl_stq_glr_quantidade_3 As label:
+            Align: =Align.Center
+            Color: =RGBA(51, 51, 51, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            Font: =Font.'Segoe UI'
+            FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+            Height: =Parent.TemplateHeight
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =17
+            Text: =Sum(Filter('Pedidos Social', Item = ThisItem.Value, tipoSolicit = "Saída", Departamento = filtroEstoque.Selected.Título),Quantidade)
+            Width: =107
+            X: =688
+            ZIndex: =11
+
+        scl_stq_glr_quantidade_4 As label:
+            Align: =Align.Center
+            Color: =RGBA(51, 51, 51, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            Font: =Font.'Segoe UI'
+            FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+            Height: =Parent.TemplateHeight
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =17
+            Text: =Sum(Filter('Movimentação Estoque Social', Item = ThisItem.Value, tipoSolicit = "Entrada", 'Status (Status0)' = "Aprovado", Departamento = filtroEstoque.Selected.Título),Quantidade) - Sum(Filter('Movimentação Estoque Social', Item = ThisItem.Value, tipoSolicit = "Saída", 'Status (Status0)' = "Aprovado", Departamento = filtroEstoque.Selected.Título),Quantidade) - Sum(Filter('Pedidos Social', Item = ThisItem.Value, tipoSolicit = "Saída", Departamento = filtroEstoque.Selected.Título),Quantidade)
+            Width: =116
+            X: =549
+            ZIndex: =12
+
+        scl_stq_glr_quantidade_5 As label:
+            Align: =Align.Center
+            Color: =RGBA(51, 51, 51, 1)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            Font: =Font.'Segoe UI'
+            FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+            Height: =Parent.TemplateHeight
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =17
+            Text: =Sum(Filter('Movimentação Estoque Social', Item = ThisItem.Value, tipoSolicit = "Entrada", 'Status (Status0)' = "Aprovado", Departamento = filtroEstoque.Selected.Título),Quantidade) - Sum(Filter('Movimentação Estoque Social', Item = ThisItem.Value, tipoSolicit = "Saída", 'Status (Status0)' = "Aprovado", Departamento = filtroEstoque.Selected.Título),Quantidade)
+            Width: =107
+            X: =819
+            ZIndex: =13
+
+    scl_stq_item As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        BorderThickness: =2
+        Color: =RGBA(25, 46, 1, 1)
+        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        FocusedBorderThickness: =4
+        Font: =Font.'Segoe UI'
+        FontWeight: =FontWeight.Bold
+        Height: =43
+        Size: =17
+        Text: ="Item"
+        Width: =217
+        X: =208
+        Y: =176
+        ZIndex: =4
+
+    scl_stq_entrada As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        BorderThickness: =2
+        Color: =RGBA(25, 46, 1, 1)
+        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        FocusedBorderThickness: =4
+        Font: =Font.'Segoe UI'
+        FontWeight: =FontWeight.Bold
+        Height: =43
+        Size: =17
+        Text: ="Ultima Entrada"
+        Width: =170
+        X: =939
+        Y: =176
+        ZIndex: =6
+
+    scl_stq_armazenar As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        BorderThickness: =2
+        Color: =RGBA(25, 46, 1, 1)
+        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        FocusedBorderThickness: =4
+        Font: =Font.'Segoe UI'
+        FontWeight: =FontWeight.Bold
+        Height: =43
+        Size: =17
+        Text: ="Armazenar Até"
+        Width: =185
+        X: =1155
+        Y: =176
+        ZIndex: =7
+
+    scl_stq_voltar As icon.BackArrow:
+        BorderColor: =RGBA(166, 166, 166, 1)
+        Color: =RGBA(25, 46, 1, 1)
+        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+        DisabledColor: =RGBA(220, 220, 220, 1)
+        DisabledFill: =RGBA(0, 0, 0, 0)
+        FocusedBorderThickness: =4
+        Height: =85
+        HoverBorderColor: =RGBA(0, 0, 0, 0)
+        HoverColor: =ColorFade(RGBA(73, 130, 5, 1), -30%)
+        HoverFill: =RGBA(0, 0, 0, 0)
+        Icon: =Icon.BackArrow
+        OnSelect: =Navigate(SOCIAL_MENU)
+        PressedBorderColor: =RGBA(0, 0, 0, 0)
+        PressedColor: =ColorFade(RGBA(73, 130, 5, 1), -30%)
+        PressedFill: =RGBA(0, 0, 0, 0)
+        Width: =98
+        X: =21
+        Y: =15
+        ZIndex: =9
+
+    buscar As text:
+        BorderColor: =RGBA(25, 46, 1, 1)
+        BorderThickness: =2
+        Clear: =true
+        Color: =RGBA(51, 51, 51, 1)
+        Default: =""
+        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+        DisabledColor: =RGBA(25, 46, 1, 1)
+        DisabledFill: =RGBA(244, 244, 244, 1)
+        FocusedBorderThickness: =4
+        Font: =Font.'Segoe UI'
+        Height: =51
+        HintText: ="Buscar por item"
+        HoverBorderColor: =ColorFade(RGBA(73, 130, 5, 1), -30%)
+        HoverColor: =RGBA(51, 51, 51, 1)
+        HoverFill: =RGBA(255, 255, 255, 1)
+        PaddingLeft: =80
+        PressedBorderColor: =RGBA(73, 130, 5, 1)
+        PressedColor: =RGBA(51, 51, 51, 1)
+        PressedFill: =RGBA(255, 255, 255, 1)
+        RadiusBottomLeft: =50
+        RadiusBottomRight: =50
+        RadiusTopLeft: =50
+        RadiusTopRight: =50
+        Size: =13
+        Width: =356
+        X: =992
+        Y: =32
+        ZIndex: =10
+
+    Icon3 As icon.Add:
+        BorderColor: =RGBA(166, 166, 166, 1)
+        Color: =RGBA(25, 46, 1, 1)
+        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+        DisabledColor: =RGBA(220, 220, 220, 1)
+        DisabledFill: =RGBA(0, 0, 0, 0)
+        DisplayMode: =DisplayMode.View
+        FocusedBorderThickness: =4
+        Height: =51
+        HoverBorderColor: =RGBA(0, 0, 0, 0)
+        HoverColor: =ColorFade(RGBA(73, 130, 5, 1), -30%)
+        HoverFill: =RGBA(0, 0, 0, 0)
+        Icon: =Icon.Search
+        PressedBorderColor: =RGBA(0, 0, 0, 0)
+        PressedColor: =ColorFade(RGBA(73, 130, 5, 1), -30%)
+        PressedFill: =RGBA(0, 0, 0, 0)
+        Width: =43
+        X: =1005
+        Y: =32
+        ZIndex: =11
+
+    scl_stq_quantidade_3 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        BorderThickness: =2
+        Color: =RGBA(25, 46, 1, 1)
+        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        FocusedBorderThickness: =4
+        Font: =Font.'Segoe UI'
+        FontWeight: =FontWeight.Bold
+        Height: =31
+        Size: =17
+        Text: ="Quantidades"
+        Width: =152
+        X: =662
+        Y: =152
+        ZIndex: =14
+
+    Label10 As label:
+        BorderColor: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        BorderThickness: =2
+        Color: =RGBA(25, 46, 1, 1)
+        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        DisplayMode: =If(Login = "Adm" || Login = "Comunicação e Eventos, Marketing" || Login = "Social", DisplayMode.Edit, DisplayMode.View)
+        FocusedBorderThickness: =4
+        Font: =Font.'Segoe UI'
+        FontWeight: =FontWeight.Semibold
+        Height: =45
+        Size: =20
+        Text: |-
+            ="Departamento:"
+        Width: =195
+        X: =406
+        Y: =100
+        ZIndex: =15
+
+    filtroEstoque As dropdown:
+        AllowEmptySelection: =true
+        BorderColor: =RGBA(25, 46, 1, 1)
+        BorderThickness: =3
+        ChevronBackground: =RGBA(255, 255, 255, 1)
+        ChevronDisabledBackground: =RGBA(244, 244, 244, 1)
+        ChevronDisabledFill: =RGBA(166, 166, 166, 1)
+        ChevronFill: =RGBA(33, 33, 33, 1)
+        ChevronHoverBackground: =RGBA(212, 212, 212, 1)
+        ChevronHoverFill: =RGBA(33, 33, 33, 1)
+        Color: =RGBA(51, 51, 51, 1)
+        Default: =Switch(Login, "Adm", "", "Comunicação e Eventos, Marketing", "", "Cooperativismo", "Cooperativismo", "Socioambiental", "Socioambiental", "Oficina de Fraldas", "Oficina de Fraldas", "Departamento Técnico", "Departamento Técnico", "Coopsoli", "Coopsoli", "Demais Departamentos", "Demais Departamentos", "Diretoria", "Diretoria")
+        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        DisabledFill: =RGBA(244, 244, 244, 1)
+        DisplayMode: =If(Login = "Adm" || Login = "Comunicação e Eventos, Marketing" || Login = "Social", DisplayMode.Edit, DisplayMode.View)
+        Font: =Font.'Segoe UI'
+        FontWeight: =FontWeight.Semibold
+        Height: =45
+        HoverBorderColor: =ColorFade(RGBA(73, 130, 5, 1), -30%)
+        HoverColor: =RGBA(51, 51, 51, 1)
+        HoverFill: =RGBA(212, 212, 212, 1)
+        Items: |-
+            =Sort(If(Login = "Comunicação e Eventos, Marketing", 
+                Filter(Departamentos, Título = "Marketing" || Título = "Comunicação e Eventos"), 
+                If(Login = "Social", 
+                Filter(Departamentos, Título = "Socioambiental" || Título = "Oficina de Fraldas"), Departamentos)),Título,SortOrder.Ascending)
+        PaddingBottom: =5
+        PaddingLeft: =12
+        PaddingRight: =5
+        PaddingTop: =5
+        PressedBorderColor: =ColorFade(RGBA(73, 130, 5, 1), -30%)
+        PressedColor: =RGBA(255, 255, 255, 1)
+        PressedFill: =RGBA(73, 130, 5, 1)
+        SelectionFill: =RGBA(73, 130, 5, 1)
+        Size: =20
+        Width: =345
+        X: =615
+        Y: =100
+        ZIndex: =16
+
+    scl_stq_quantidade_4 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        BorderThickness: =2
+        Color: =RGBA(25, 46, 1, 1)
+        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        FocusedBorderThickness: =4
+        Font: =Font.'Segoe UI'
+        FontWeight: =FontWeight.Bold
+        Height: =31
+        Size: =10
+        Text: ="Disponível"
+        Width: =85
+        X: =567
+        Y: =182
+        ZIndex: =17
+
+    scl_stq_quantidade_5 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        BorderThickness: =2
+        Color: =RGBA(25, 46, 1, 1)
+        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        FocusedBorderThickness: =4
+        Font: =Font.'Segoe UI'
+        FontWeight: =FontWeight.Bold
+        Height: =31
+        Size: =10
+        Text: ="Em Solicit. Ativa"
+        Width: =112
+        X: =687
+        Y: =182
+        ZIndex: =18
+
+    scl_stq_quantidade_7 As label:
+        Align: =Align.Center
+        BorderColor: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        BorderThickness: =2
+        Color: =RGBA(25, 46, 1, 1)
+        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        FocusedBorderThickness: =4
+        Font: =Font.'Segoe UI'
+        FontWeight: =FontWeight.Bold
+        Height: =31
+        Size: =10
+        Text: ="Total"
+        Width: =56
+        X: =844
+        Y: =182
+        ZIndex: =19
+
+    Button1 As button:
+        BorderColor: =RGBA(0, 0, 0, 0)
+        Color: =RGBA(25, 46, 1, 1)
+        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        DisabledFill: =RGBA(244, 244, 244, 1)
+        Fill: =RGBA(73, 130, 5, 0)
+        FocusedBorderColor: =ColorFade(Self.Fill, -75%)
+        Font: =Font.'Segoe UI'
+        FontWeight: =FontWeight.Bold
+        Height: =83
+        HoverBorderColor: =RGBA(0, 0, 0, 0)
+        HoverColor: =RGBA(25, 46, 1, 1)
+        HoverFill: =
+        OnSelect: =Refresh('Movimentação Estoque Social')
+        PressedBorderColor: =
+        PressedColor: =RGBA(25, 46, 1, 1)
+        PressedFill: =
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =50
+        Text: ="ESTOQUE"
+        Width: =336
+        X: =515
+        Y: =8
+        ZIndex: =20
+
